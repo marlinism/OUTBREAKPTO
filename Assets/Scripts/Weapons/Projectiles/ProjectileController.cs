@@ -5,6 +5,8 @@ using UnityEngine.Assertions;
 
 public class ProjectileController : MonoBehaviour
 {
+    public GameObject impactEffect;
+
     public float speed = 50f;
     public float maxDistance = 50f;
     public float height = 0.5f;
@@ -95,7 +97,14 @@ public class ProjectileController : MonoBehaviour
     {
         transform.position += transform.right * hitInfo.distance;
 
-        // todo: call collider's hit function, spawn impact effect
+        // todo: call collider's hit function
+
+        if (impactEffect != null)
+        {
+            GameObject effect = Instantiate(impactEffect);
+            effect.transform.position = transform.position;
+            effect.transform.right = transform.right;
+        }
 
         Destroy(gameObject);
     }

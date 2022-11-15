@@ -5,14 +5,14 @@ using UnityEngine.Assertions;
 
 public class WeaponSpriteManager : MonoBehaviour
 {
+    public WeaponEquippedController wec;
+    public Animator anim;
+    public SpriteRenderer sr;
+
     private string weaponName;
 
     private bool visible;
     private bool flipped;
-
-    private WeaponController wc;
-    private Animator anim;
-    private SpriteRenderer sr;
 
     public bool Visible
     {
@@ -57,20 +57,16 @@ public class WeaponSpriteManager : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    // Awake is called before the first frame update
+    void Awake()
     {
-        wc = transform.parent.GetComponent<WeaponController>();
-        Assert.IsNotNull(wc);
-
-        anim = GetComponent<Animator>();
+        Assert.IsNotNull(wec);
         Assert.IsNotNull(anim);
-
-        sr = GetComponent<SpriteRenderer>();
         Assert.IsNotNull(sr);
 
-        weaponName = wc.weaponName;
-        Visible = true;
+        weaponName = wec.wm.weaponName;
+
+        Hide();
     }
 
     public void PlayFireAnim()

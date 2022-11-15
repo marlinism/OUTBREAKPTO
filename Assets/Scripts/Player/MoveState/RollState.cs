@@ -33,7 +33,7 @@ public class RollState : MoveState
             started = true;
         }
 
-        player.rb.velocity = moveDirection * speed;
+        player.Rigidbody.velocity = moveDirection * speed;
     }
 
     private void PlayRollAnimation()

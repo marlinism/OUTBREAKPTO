@@ -5,12 +5,11 @@ using UnityEngine.Assertions;
 
 public class ProjectileBaseColliderManger : MonoBehaviour
 {
-    private ProjectileController pc;
+    public ProjectileController pc;
 
     // Start is called before the first frame update
     void Start()
     {
-        pc = transform.parent.GetComponent<ProjectileController>();
         Assert.IsNotNull(pc);
     }
 
