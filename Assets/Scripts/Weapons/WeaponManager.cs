@@ -12,56 +12,102 @@ public class WeaponManager : MonoBehaviour
     public float inaccuracyAngle = 5f;
     public float projectileSpeed = 75f;
     public float projectileMaxDist = 100f;
-    public float baseDamage = 10;
+    public DamageSource projectileSource = DamageSource.Neutral;
+    public int baseDamage = 10;
     public float rateOfFire = 0.2f;
     public bool automaticFire = true;
     public bool projectilePenetration = false;
     public int ammoCapacity = 10;
+    public float unequipFlingForce = 2f;
     public float frontBackRange = 0.4f;
 
     public SpriteRenderer sr = null;
+    public Rigidbody2D rb = null;
     public WeaponEquippedController wec = null;
     public GameObject equippedState = null;
     public GameObject unequippedState = null;
-    public GameObject worldWeaponStorage = null;
-    public GameObject worldProjectileStorage = null;
 
     private bool equipped;
     private Sprite unequippedSprite;
-    private PlayerManager player;
 
+    // Properties
+    public DamageSource ProjectileSource
+    {
+        get { return projectileSource; }
+        set { projectileSource = value; }
+    }
+    public int Ammo
+    {
+        get { return wec.Ammo; }
+    }
     public bool Equipped
     {
         get { return equipped; }
     }
+    
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         Assert.IsNotNull(weaponName);
         Assert.IsNotNull(projectile);
         Assert.IsNotNull(sr);
+        Assert.IsNotNull(rb);
         Assert.IsNotNull(wec);
         Assert.IsNotNull(equippedState);
         Assert.IsNotNull(unequippedState);
 
-        player = null;
-
         wec = transform.Find("Equipped State").GetComponent<WeaponEquippedController>();
         Assert.IsNotNull(wec);
 
-        equipped = false;
         unequippedSprite = sr.sprite;
+        rb.bodyType = RigidbodyType2D.Dynamic;
+
+        // Check if weapon should start equipped
+        if (transform.parent != null && transform.parent.tag == "Weapon Inventory")
+        {
+            WeaponInventoryManager wim = transform.parent.GetComponent<WeaponInventoryManager>();
+            wim.AddWeapon(gameObject);
+        }
+        else
+        {
+            equipped = false;
+        }
     }
 
-    public void UpdateWeaponState(Vector3 pointDirection)
+    public void Aim(Vector2 aimDirection)
     {
         if (!equipped)
         {
             return;
         }
 
-        wec.UpdateWeaponState(pointDirection);
+        wec.Aim(aimDirection);
+    }
+
+    public void Aim(Vector2 aimDirection, Vector2 aimPoint)
+    {
+        if (!equipped)
+        {
+            return;
+        }
+
+        wec.Aim(aimDirection, aimPoint);
+    }
+
+    public bool Fire(bool triggerStarted)
+    {
+        if (!equipped)
+        {
+            return false;
+        }
+
+        if (!triggerStarted && !automaticFire)
+        {
+            return false;
+        }
+
+        return wec.Fire();
     }
 
     public bool Equip(GameObject caller)
@@ -72,15 +118,16 @@ public class WeaponManager : MonoBehaviour
         }
 
         WeaponInventoryManager wim = caller.GetComponent<WeaponInventoryManager>();
-        player = wim.player;
         transform.parent = wim.transform;
         transform.localPosition = Vector3.zero;
 
         equippedState.SetActive(true);
         unequippedState.SetActive(false);
         sr.sprite = null;
+        rb.velocity = Vector2.zero;
+        rb.bodyType = RigidbodyType2D.Kinematic;
 
-        wec.Initialize(player);
+        wec.Initialize(caller);
 
         equipped = true;
         return true;
@@ -93,19 +140,18 @@ public class WeaponManager : MonoBehaviour
             return;
         }
 
-        if (worldWeaponStorage == null)
-        {
-            transform.parent = null;
-        }
-        else
-        {
-            transform.parent = worldWeaponStorage.transform;
-        }
+        StorageSystem.Inst.StoreItem(gameObject);
 
         wec.Remove();
         equippedState.SetActive(false);
         unequippedState.SetActive(true);
         sr.sprite = unequippedSprite;
+        rb.bodyType = RigidbodyType2D.Dynamic;
+
+        // Apply unequip fling
+        Vector2 direction = new(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+        direction.Normalize();
+        rb.AddForce(direction * unequipFlingForce, ForceMode2D.Impulse);
 
         equipped = false;
     }

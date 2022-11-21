@@ -8,7 +8,7 @@ public class ProjectileBaseColliderManger : MonoBehaviour
     public ProjectileController pc;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         Assert.IsNotNull(pc);
     }

@@ -223,7 +223,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 0.53521127, b: 0, a: 0.627451}
+      maxColor: {r: 1, g: 0.53521127, b: 0, a: 0.7058824}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -285,7 +285,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.04
+      scalar: 0.05
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -1305,8 +1305,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 0.53333336, b: 0, a: 0.627451}
-        key1: {r: 1, g: 0.5372549, b: 0, a: 0.627451}
+        key0: {r: 1, g: 0.53333336, b: 0, a: 0.7058824}
+        key1: {r: 1, g: 0.5372549, b: 0, a: 0.7058824}
         key2: {r: 1, g: 0.5372549, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -9775,8 +9775,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89d6d9610f7064940a79f75fdf517b4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bcm: {fileID: 7174274239853318887}
   impactEffect: {fileID: 4841739453630888916, guid: 103e8be89d2abf748af83bf10e2f2c9d, type: 3}
   speed: 50
+  damage: 10
+  damageSource: 1
+  damageType: 2
+  damageResponse: 1
   maxDistance: 50
   height: 0.5
   penetrateThrough: 0

@@ -437,6 +437,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1575606730758908823}
   - component: {fileID: 1575606730758908810}
+  - component: {fileID: 2629266931243741084}
   - component: {fileID: 1575606730758908821}
   m_Layer: 0
   m_Name: Pistol
@@ -514,6 +515,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!50 &2629266931243741084
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1575606730758908822}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 5
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!114 &1575606730758908821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -532,13 +554,16 @@ MonoBehaviour:
   inaccuracyAngle: 7
   projectileSpeed: 60
   projectileMaxDist: 50
-  baseDamage: 5
+  projectileSource: 1
+  baseDamage: 10
   rateOfFire: 0.1
   automaticFire: 0
   projectilePenetration: 0
   ammoCapacity: 1000
+  unequipFlingForce: 2
   frontBackRange: 0.4
   sr: {fileID: 1575606730758908810}
+  rb: {fileID: 2629266931243741084}
   wec: {fileID: 1575606731040858047}
   equippedState: {fileID: 1575606731040858041}
   unequippedState: {fileID: 1575606731118296067}
@@ -727,10 +752,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1575606731118296064}
-  - component: {fileID: 1575606731118296070}
+  - component: {fileID: 3022481458111342869}
   - component: {fileID: 1575606731118296065}
   - component: {fileID: 1575606731118296068}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: Unequipped State
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -748,31 +773,26 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 378524370494149604}
   m_Father: {fileID: 1575606730758908823}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &1575606731118296070
-Rigidbody2D:
-  serializedVersion: 4
+--- !u!114 &3022481458111342869
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1575606731118296067}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 10
-  m_AngularDrag: 0
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9da7757b4d49f424dacc5302bf6f5c0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tagList:
+  - {fileID: 11400000, guid: c53cb035935330440b98446eda3e4fa7, type: 2}
+  - {fileID: 11400000, guid: 8d0854587f1821c41bf0cb235ff14e33, type: 2}
 --- !u!58 &1575606731118296065
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -801,4 +821,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76fade856edfd6c45809a2547c27082b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb2d: {fileID: 1575606731118296070}
+  rb2d: {fileID: 2629266931243741084}
+--- !u!1 &2503052407038547394
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 378524370494149604}
+  - component: {fileID: 8501874152643824053}
+  m_Layer: 11
+  m_Name: Physics Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &378524370494149604
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2503052407038547394}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1575606731118296064}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &8501874152643824053
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2503052407038547394}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.03, y: -0.01}
+  m_Size: {x: 0.5, y: 0.18}
+  m_Direction: 1

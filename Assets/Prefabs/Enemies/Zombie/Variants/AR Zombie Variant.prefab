@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &7683972316826649070
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3181486184915063786, guid: ad755612bc1532b42ba30a985efe91f7, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3181486184915063786, guid: ad755612bc1532b42ba30a985efe91f7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3181486184915063786, guid: ad755612bc1532b42ba30a985efe91f7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3181486184915063786, guid: ad755612bc1532b42ba30a985efe91f7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3181486184915063786, guid: ad755612bc1532b42ba30a985efe91f7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3181486184915063786, guid: ad755612bc1532b42ba30a985efe91f7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3181486184915063786, guid: ad755612bc1532b42ba30a985efe91f7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3181486184915063786, guid: ad755612bc1532b42ba30a985efe91f7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3181486184915063786, guid: ad755612bc1532b42ba30a985efe91f7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3181486184915063786, guid: ad755612bc1532b42ba30a985efe91f7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3181486184915063786, guid: ad755612bc1532b42ba30a985efe91f7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7831216371223491407, guid: ad755612bc1532b42ba30a985efe91f7, type: 3}
+      propertyPath: m_Name
+      value: AR Zombie
+      objectReference: {fileID: 0}
+    - target: {fileID: 8167274575454994663, guid: ad755612bc1532b42ba30a985efe91f7, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8167274575454994663, guid: ad755612bc1532b42ba30a985efe91f7, type: 3}
+      propertyPath: m_InstanceId
+      value: -41876
+      objectReference: {fileID: 0}
+    - target: {fileID: 9145530109666001149, guid: ad755612bc1532b42ba30a985efe91f7, type: 3}
+      propertyPath: weaponList.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9145530109666001149, guid: ad755612bc1532b42ba30a985efe91f7, type: 3}
+      propertyPath: weaponList.Array.data[1]
+      value: 
+      objectReference: {fileID: 1575606730758908822, guid: 75871f5da54370942ad5f3e17594a232, type: 3}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ad755612bc1532b42ba30a985efe91f7, type: 3}

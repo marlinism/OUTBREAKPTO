@@ -9859,6 +9859,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89d6d9610f7064940a79f75fdf517b4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bcm: {fileID: 993877762575210886}
   impactEffect: {fileID: 7964498563023698432, guid: 481dcf7f77b5be24fb803ed37f474a5f, type: 3}
   speed: 50
   maxDistance: 50

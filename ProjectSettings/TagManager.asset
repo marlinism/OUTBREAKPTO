@@ -9,24 +9,26 @@ TagManager:
   - Weapon
   - Weapon Inventory
   - Interactor
+  - Enemy
+  - Signal
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - SKY
+  - Minimap
   - Water
   - UI
   - Projectile
   - Obstacle
-  - Hittable
-  - Interaction
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Hitbox
+  - Hurtbox
+  - Signal
+  - Character
+  - Player
+  - CharacterObstacle
+  - Floor
+  - Light
+  - Door
   - 
   - 
   - 
@@ -60,4 +62,7 @@ TagManager:
     locked: 0
   - name: Ceiling
     uniqueID: 2842834433
+    locked: 0
+  - name: UI
+    uniqueID: 778929429
     locked: 0

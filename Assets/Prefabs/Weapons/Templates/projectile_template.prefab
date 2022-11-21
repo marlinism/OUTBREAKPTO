@@ -151,6 +151,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89d6d9610f7064940a79f75fdf517b4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bcm: {fileID: 8637951561649022563}
+  impactEffect: {fileID: 0}
   speed: 50
   maxDistance: 50
   height: 0.5
