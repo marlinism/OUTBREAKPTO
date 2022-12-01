@@ -73,7 +73,7 @@ public class ZombieFireState : MoveState
                 }
                 else if (zombie.WeaponInventory.CurrentWeapon.Ammo <= 0)
                 {
-                    zombie.WeaponInventory.RemoveCurrentWeapon();
+                    zombie.RemoveWeapon();
                     Completed = true;
                 }
                 else
@@ -125,7 +125,7 @@ public class ZombieFireState : MoveState
             case FireSubstate.CheckAmmo:
                 if (zombie.WeaponInventory.CurrentWeapon.Ammo <= 0)
                 {
-                    zombie.WeaponInventory.RemoveCurrentWeapon();
+                    zombie.RemoveWeapon();
                     Completed = true;
                     return;
                 }

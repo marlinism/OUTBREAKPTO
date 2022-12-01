@@ -6,7 +6,10 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     public static bool GameIsPaused = false;
+    public static bool MapInUsed = false;
     public GameObject pauseMenuUI;
+    public GameObject mapUI;
+    
 
     // Update is called once per frame
     void Update()
@@ -18,6 +21,26 @@ public class PauseMenu : MonoBehaviour
              Pause();
          }
      }   
+
+     if(Input.GetKeyDown(KeyCode.M)) {
+         if(MapInUsed) {
+             RemoveMap();
+         } else {
+             LoadMap();
+         }
+     }   
+    }
+
+    public void RemoveMap() {
+        mapUI.SetActive(false);
+        Time.timeScale = 1f;
+        MapInUsed = false;
+    }
+
+    public void LoadMap() {
+        mapUI.SetActive(true);
+        Time.timeScale = 0f;
+        MapInUsed = true;
     }
 
     public void Resume() {
@@ -37,6 +60,7 @@ public class PauseMenu : MonoBehaviour
     }
 
     public void LoadMenu() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        SceneManager.LoadScene("Menu", LoadSceneMode.Single);
+        Time.timeScale = 1f;
     }
 }

@@ -21,6 +21,9 @@ public class PlayerManager : Damageable
     // Speed of character
     public float movementSpeed = 4f;
 
+    // Cooldown of roll action
+    public float rollCoolDown = 4f;
+
     // Indicates if the player is using a gamepad (otherwise keyboard)
     private bool usingGamepad = false;
 
@@ -29,6 +32,15 @@ public class PlayerManager : Damageable
     private Vector3 moveDirection;
     private Vector3 lookDirection;
     private Vector3 pointPosition;
+
+    // Player speed modifier
+    private float speedMultiplier;
+
+    // Indicates the time of the last roll
+    private float lastRoll;
+
+    // Indicates if the player is currently in a reloading move state
+    private bool reloading;
 
     // Player component properties
     public Rigidbody2D Rigidbody
@@ -75,13 +87,23 @@ public class PlayerManager : Damageable
         get { return hb.transform.position; }
     }
 
-    // Control and Animation restriction properties
+    // Player info properties
     public ControlRestriction ControlBlockLevel
     {
         get
         {
             return msm.ControlBlockLevel;
         }
+    }
+    public float SpeedMultiplier
+    {
+        get { return speedMultiplier; }
+        set { speedMultiplier = value; }
+    }
+    public bool Reloading
+    {
+        get { return reloading; }
+        set { reloading = value; }
     }
 
     // Start is called before the first frame update
@@ -99,6 +121,10 @@ public class PlayerManager : Damageable
         moveDirection = Vector3.zero;
         lookDirection = Vector3.zero;
         pointPosition = Vector3.zero;
+
+        speedMultiplier = 1f;
+        lastRoll = 0f;
+        reloading = false;
 
         PlayerSystem.Inst.SetPlayer(gameObject);
 
@@ -151,6 +177,12 @@ public class PlayerManager : Damageable
         base.Heal(healAmount);
         UISystem.Inst.UpdateHealthBar();
     }
+    public override void IncreaseHealth(int increaseAmount)
+    {
+        base.IncreaseHealth(increaseAmount);
+        currHealth = maxHealth;
+        UISystem.Inst.UpdateHealthBar();
+    }
 
     // Calculate moveDirection through the user's axis inputs
     private void GetMoveDirection()
@@ -199,21 +231,58 @@ public class PlayerManager : Damageable
     {
         if (input.actions["Roll"].triggered)
         {
-            msm.AddMoveState(new RollState(gameObject));
+            if (Time.time - lastRoll >= rollCoolDown)
+            {
+                lastRoll = Time.time;
+                msm.AddMoveState(new RollState(gameObject));
+            }
         }
 
         if (input.actions["Interact"].triggered)
         {
             pim.Interact();
+            UISystem.Inst.UpdateAmmoCounter();
         }
 
         if (input.actions["Next Weapon"].triggered)
         {
+            if (reloading)
+            {
+                msm.FinishCurrentState();
+            }
             wim.RotateNextWeapon();
+            UISystem.Inst.UpdateAmmoCounter();
         }
         else if (input.actions["Prev Weapon"].triggered)
         {
+            if (reloading)
+            {
+                msm.FinishCurrentState();
+            }
             wim.RotatePrevWeapon();
+            UISystem.Inst.UpdateAmmoCounter();
+        }
+
+        if (input.actions["Reload"].triggered)
+        {
+            WeaponManager wm = WeaponInventory.CurrentWeapon;
+            if (wm != null && wm.Ammo < wm.AmmoCapacity)
+            {
+                switch (wm.weaponName)
+                {
+                    case "weapon_pistol":
+                        msm.AddMoveState(new ReloadPistolState(gameObject, wm));
+                        break;
+
+                    case "weapon_ar":
+                        msm.AddMoveState(new ReloadARState(gameObject, wm));
+                        break;
+
+                    case "weapon_mg":
+                        msm.AddMoveState(new ReloadMGState(gameObject, wm));
+                        break;
+                }
+            }
         }
     }
 
@@ -240,6 +309,8 @@ public class PlayerManager : Damageable
             {
                 wim.FireCurrentWeapon(false);
             }
+
+            UISystem.Inst.UpdateAmmoCounter();
         }
     }
 
@@ -257,7 +328,7 @@ public class PlayerManager : Damageable
             return;
         }
 
-        rb.velocity = moveDirection * movementSpeed;
+        rb.velocity = moveDirection * (movementSpeed * speedMultiplier);
     }
 
     // Update the player's sprite animation for basic movement

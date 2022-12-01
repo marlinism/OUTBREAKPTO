@@ -73,8 +73,8 @@ public class HealthBarManager : MonoBehaviour
             return;
         }
 
-        widthIncrease *= 1 / (estimate / maxWidth);
-        SetWidth(widthIncrease);
+        widthIncrease *= 1 - (estimate / maxWidth);
+        SetWidth(widthIncrease + dimensions.x);
     }
 
     // Set the health bar fill position

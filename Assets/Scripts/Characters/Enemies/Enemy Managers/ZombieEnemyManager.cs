@@ -12,6 +12,8 @@ public class ZombieEnemyManager : Enemy
     [SerializeField]
     private WeaponInventoryManager wim;
     [SerializeField]
+    private Hitbox tempHitbox;
+    [SerializeField]
     private List<GameObject> weaponList;
 
     public float fireRange = 8f;
@@ -35,6 +37,7 @@ public class ZombieEnemyManager : Enemy
         Assert.IsNotNull(esm);
         Assert.IsNotNull(msm);
         Assert.IsNotNull(wim);
+        Assert.IsNotNull(tempHitbox);
         Assert.IsNotNull(weaponList);
 
         GetStartingWeapon();
@@ -61,6 +64,7 @@ public class ZombieEnemyManager : Enemy
         if (distance <= meleeRange)
         {
             // stub, do melee attack
+            
         }
         else if (distance <= fireRange && SightlineToPlayer() && wim.WeaponCount > 0)
         {
@@ -77,8 +81,24 @@ public class ZombieEnemyManager : Enemy
     public override void Kill()
     {
         // stub, add death animation
-        wim.RemoveCurrentWeapon();
+        RemoveWeapon();
         Destroy(gameObject);
+    }
+
+    public void RemoveWeapon()
+    {
+        if (wim.WeaponCount <= 0)
+        {
+            return;
+        }
+
+        WeaponManager weapon = wim.CurrentWeapon;
+        wim.RemoveCurrentWeapon();
+        Destroy(weapon.gameObject);
+
+        // temporary solution to melee damage
+        // Remove once headbutt attack is added
+        tempHitbox.Enable();
     }
 
     private void GetStartingWeapon()

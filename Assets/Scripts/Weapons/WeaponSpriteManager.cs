@@ -13,6 +13,11 @@ public class WeaponSpriteManager : MonoBehaviour
 
     private bool visible;
     private bool flipped;
+    AudioSource shootingSound;
+
+    void Start() {
+        shootingSound = GetComponent<AudioSource>();
+    }
 
     public bool Visible
     {
@@ -71,6 +76,7 @@ public class WeaponSpriteManager : MonoBehaviour
 
     public void PlayFireAnim()
     {
+        shootingSound.Play();
         anim.Play(weaponName + "_fire", -1, 0f);
     }
 

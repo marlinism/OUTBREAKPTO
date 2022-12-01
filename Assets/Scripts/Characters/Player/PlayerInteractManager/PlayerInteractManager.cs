@@ -52,7 +52,7 @@ public class PlayerInteractManager : MonoBehaviour
 
             case "Interactor":
                 GameObject target = interaction.Value;
-                interactables.Remove(interaction);
+                //interactables.Remove(interaction);
                 target.GetComponent<Interactor>().Interact();
                 return;
 

@@ -29,6 +29,12 @@ public class WeaponEquippedController : MonoBehaviour
 
     private GameObject holder;
 
+    AudioSource reloadSound;
+
+    void Start() {
+        reloadSound = GetComponent<AudioSource>();
+    }
+
     public bool WeaponEnabled
     {
         get { return weaponEnabled; }
@@ -181,6 +187,13 @@ public class WeaponEquippedController : MonoBehaviour
         --currAmmo;
         wsm.PlayFireAnim();
         return true;
+    }
+
+    public void Reload()
+    {
+        reloadSound.Play();
+        
+        currAmmo = wm.ammoCapacity;
     }
 
     private void SetDirection(Vector3 direction)

@@ -33,6 +33,7 @@ public class PlayerSystem : MonoBehaviour
         }
 
         player = inPlayer;
+        UISystem.Inst.ShowUI();
     }
 
     public void RemovePlayer()

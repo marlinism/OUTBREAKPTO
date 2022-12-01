@@ -8,6 +8,7 @@ public class AnimationEvents : MonoBehaviour
     // Component references
     private PlayerManager player;
     private MoveStateManager msManager;
+    private SubspriteManager ssm;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +21,9 @@ public class AnimationEvents : MonoBehaviour
 
         msManager = playerGameObject.GetComponent<MoveStateManager>();
         Assert.IsNotNull(msManager);
+
+        ssm = GetComponent<SubspriteManager>();
+        Assert.IsNotNull(ssm);
     }
 
     public void NotifyState()
@@ -30,5 +34,10 @@ public class AnimationEvents : MonoBehaviour
     public void FinishState()
     {
         msManager.FinishCurrentState();
+    }
+
+    public void Disable()
+    {
+        ssm.Disable();
     }
 }

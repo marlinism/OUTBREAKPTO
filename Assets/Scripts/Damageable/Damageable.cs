@@ -70,4 +70,11 @@ public abstract class Damageable : MonoBehaviour
             currHealth = maxHealth;
         }
     }
+
+    // IncreaseHealth method
+    // Increases the max health of the damageable object
+    public virtual void IncreaseHealth(int increaseAmount)
+    {
+        maxHealth += increaseAmount;
+    }
 }

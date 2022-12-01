@@ -251,7 +251,7 @@ MonoBehaviour:
   - {x: 0.1559433, y: -0.12507851, z: 0}
   m_ShapePathHash: 1376537051
   m_Mesh: {fileID: 0}
-  m_InstanceId: 32662
+  m_InstanceId: 60670
 --- !u!1 &4843955850782383330
 GameObject:
   m_ObjectHideFlags: 0
@@ -452,7 +452,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3181486184915063786}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &2280072228783980603
 CircleCollider2D:
@@ -483,6 +483,87 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetEnemy: {fileID: 9145530109666001149}
+--- !u!1 &7066894342865145434
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5984712846396449336}
+  - component: {fileID: 2735576758887960947}
+  - component: {fileID: 5008329081360238982}
+  - component: {fileID: 912488577567390278}
+  m_Layer: 8
+  m_Name: Temp Hitbox
+  m_TagString: Enemy
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5984712846396449336
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7066894342865145434}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3181486184915063786}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2735576758887960947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7066894342865145434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9da7757b4d49f424dacc5302bf6f5c0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tagList:
+  - {fileID: 11400000, guid: ce6139348ecc84e4d961d95c46972b52, type: 2}
+--- !u!70 &5008329081360238982
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7066894342865145434}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.6, y: 0.7}
+  m_Direction: 0
+--- !u!114 &912488577567390278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7066894342865145434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c41a25b9e7761f54abfcc088bd3fd7bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startEnabled: 0
+  damage: 25
+  damageSource: 4
+  damageType: 4
+  damageReponse: 1
 --- !u!1 &7831216371223491407
 GameObject:
   m_ObjectHideFlags: 0
@@ -520,6 +601,7 @@ Transform:
   - {fileID: 1320757965322002861}
   - {fileID: 7989935701376701945}
   - {fileID: 5798281834187869234}
+  - {fileID: 5984712846396449336}
   - {fileID: 3060386156024243729}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -584,6 +666,7 @@ MonoBehaviour:
   esm: {fileID: 7116287107918255531}
   msm: {fileID: 1929553192398791981}
   wim: {fileID: 3146791721418637032}
+  tempHitbox: {fileID: 912488577567390278}
   weaponList:
   - {fileID: 3416438434474257149, guid: 38d3d0ef4948bbf4d8fc547a41281d9b, type: 3}
   - {fileID: 1156246989235195009, guid: b136c68c469630341a677e2413afef19, type: 3}

@@ -10,7 +10,10 @@ public enum AnimAction
     Run,
     Roll,
     Flinch,
-    CollapseDeath
+    CollapseDeath,
+    ReloadPistol,
+    ReloadAR,
+    ReloadMG
 }
 
 public enum AnimDirection
@@ -27,7 +30,8 @@ public enum AnimBodyPart
     Full,
     Top,
     Bottom,
-    TopBottom
+    TopBottom,
+    Front
 }
 
 public class SpriteManager : MonoBehaviour
@@ -52,10 +56,9 @@ public class SpriteManager : MonoBehaviour
         get { return direction; } 
         set 
         {
-            if (!locked)
+            if (!locked && !directionLocked)
             {
                 direction = value;
-
             }
         }
     }
@@ -100,12 +103,14 @@ public class SpriteManager : MonoBehaviour
     private bool needsUpdate;
 
     private bool locked;
+    private bool directionLocked;
 
     // Component references
     private SpriteEffects sEffects;
     private SubspriteManager fullSM;
     private SubspriteManager topSM;
     private SubspriteManager bottomSM;
+    private SubspriteManager frontSM;
 
     // Properties
     public SpriteEffects Effects
@@ -127,6 +132,9 @@ public class SpriteManager : MonoBehaviour
 
         bottomSM = transform.Find("Bottom").GetComponent<SubspriteManager>();
         Assert.IsNotNull(bottomSM);
+
+        frontSM = transform.Find("Front").GetComponent<SubspriteManager>();
+        Assert.IsNotNull(frontSM);
 
         action = AnimAction.Null;
         direction = AnimDirection.Null;
@@ -185,6 +193,10 @@ public class SpriteManager : MonoBehaviour
                 bottomSM.PlayAnimation(Action.ToString().ToLower(), Direction.ToString().ToLower(), FlipX);
                 break;
 
+            case AnimBodyPart.Front:
+                frontSM.PlayAnimation(Action.ToString().ToLower(), Direction.ToString().ToLower(), FlipX);
+                return;
+
             case AnimBodyPart.Null:
             default:
                 return;
@@ -228,6 +240,11 @@ public class SpriteManager : MonoBehaviour
                 bottomSM.Lock();
                 break;
 
+            case AnimBodyPart.Front:
+                frontSM.PlayAnimation(Action.ToString().ToLower(), Direction.ToString().ToLower(), FlipX);
+                frontSM.Lock();
+                return;
+
             case AnimBodyPart.Null:
             default:
                 return;
@@ -242,6 +259,7 @@ public class SpriteManager : MonoBehaviour
         fullSM.Unlock();
         topSM.Unlock();
         bottomSM.Unlock();
+        frontSM.Unlock();
     }
 
     // Prevents any modifications of the SpriteManager until Unlock() is called
@@ -254,6 +272,24 @@ public class SpriteManager : MonoBehaviour
     public void Unlock()
     {
         locked = false;
+    }
+
+    // Prevents any modification to the direction component
+    public void LockDirection()
+    {
+        directionLocked = true;
+    }
+
+    // Reallows modification of the direction component after LockDirection() is called
+    public void UnlockDirection()
+    {
+        directionLocked = false;
+    }
+
+    // Disable the front body part (typically used for effects)
+    public void DisableFront()
+    {
+        frontSM.Disable();
     }
 
     // Update only the direction component of playing animations
@@ -269,6 +305,11 @@ public class SpriteManager : MonoBehaviour
     // Calculate the Direction animation descriptor given a direction vector
     public void CalculateDirection(Vector3 directionVector)
     {
+        if (directionLocked)
+        {
+            return;
+        }
+
         if (Mathf.Abs(directionVector.x) <= frontBackRange)
         {
             if (directionVector.y > 0)
