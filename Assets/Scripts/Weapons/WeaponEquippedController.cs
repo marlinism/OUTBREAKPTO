@@ -21,15 +21,15 @@ public class WeaponEquippedController : MonoBehaviour
     public Transform normalFirePoint;
     public Transform flippedFirePoint;
 
-    private float lastFireTime;
-    private int currAmmo;
+    protected float lastFireTime;
+    protected int currAmmo;
 
-    private bool weaponEnabled;
-    private WeaponOrientation orientation;
+    protected bool weaponEnabled;
+    protected WeaponOrientation orientation;
 
-    private GameObject holder;
+    protected GameObject holder;
 
-    AudioSource reloadSound;
+    protected AudioSource reloadSound;
 
     void Start() {
         reloadSound = GetComponent<AudioSource>();
@@ -65,7 +65,7 @@ public class WeaponEquippedController : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Awake()
+    protected virtual void Awake()
     {
         Assert.IsNotNull(wm);
         Assert.IsNotNull(wsm);
@@ -93,7 +93,7 @@ public class WeaponEquippedController : MonoBehaviour
     }
 
     // Aim the weapon towards the given direction
-    public void Aim(Vector2 aimDirection)
+    public virtual void Aim(Vector2 aimDirection)
     {
         if (!weaponEnabled)
         {
@@ -105,7 +105,7 @@ public class WeaponEquippedController : MonoBehaviour
 
     // Aim the weapon towards the given point.
     // If the resulting rotation is too extreme, defaults to the provided direction.
-    public void Aim(Vector2 aimDirection, Vector2 aimPoint)
+    public virtual void Aim(Vector2 aimDirection, Vector2 aimPoint)
     {
         if (!weaponEnabled)
         {
@@ -121,7 +121,7 @@ public class WeaponEquippedController : MonoBehaviour
     }
 
     // Fire the weapon if there is remaining ammo and accounting for ROF
-    public bool Fire()
+    public virtual bool Fire()
     {
         if (wm.projectile == null)
         {
@@ -189,14 +189,14 @@ public class WeaponEquippedController : MonoBehaviour
         return true;
     }
 
-    public void Reload()
+    public virtual void Reload()
     {
         reloadSound.Play();
         
         currAmmo = wm.ammoCapacity;
     }
 
-    private void SetDirection(Vector3 direction)
+    protected void SetDirection(Vector3 direction)
     {
         transform.right = direction;
 
@@ -233,7 +233,7 @@ public class WeaponEquippedController : MonoBehaviour
         }
     }
 
-    private void SetOrientation(WeaponOrientation inOrientation)
+    protected void SetOrientation(WeaponOrientation inOrientation)
     {
         if (inOrientation == orientation)
         {
@@ -249,13 +249,13 @@ public class WeaponEquippedController : MonoBehaviour
         wsm.SortOrder = pivotData.LayerOrder;
     }
 
-    public void Enable()
+    public virtual void Enable()
     {
         weaponEnabled = true;
         wsm.Visible = true;
     }
 
-    public void Disable()
+    public virtual void Disable()
     {
         weaponEnabled = false;
         orientation = WeaponOrientation.Invalid;
