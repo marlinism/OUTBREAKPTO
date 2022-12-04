@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 62242741335270054}
   - component: {fileID: 62242741335270073}
-  - component: {fileID: 62242741335270055}
   - component: {fileID: 62242741335270072}
+  - component: {fileID: 850389309329871391}
   m_Layer: 9
   m_Name: Hurtbox
   m_TagString: Enemy
@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 62242741335270053}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.39, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.32, y: 0.42, z: 0}
+  m_LocalScale: {x: 9.2062645, y: 10.98475, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 62242743128868504}
@@ -49,22 +49,6 @@ MonoBehaviour:
   tagList:
   - {fileID: 11400000, guid: 1d8032380af2ed34c92a5593bb2fcc35, type: 2}
   - {fileID: 11400000, guid: 805a1a9dc56737f48a3162f0da0de762, type: 2}
---- !u!58 &62242741335270055
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 62242741335270053}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.12}
-  serializedVersion: 2
-  m_Radius: 0.47
 --- !u!114 &62242741335270072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77,10 +61,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccd7ca1c5c665854e8b38b7cab67cb2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageTarget: {fileID: 0}
+  damageTarget: {fileID: 407196699403847103}
   ignoreNeutral: 0
   ignoreFriendly: 0
   ignoreHostile: 1
+--- !u!65 &850389309329871391
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 62242741335270053}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &62242743009286180
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,6 +137,7 @@ GameObject:
   - component: {fileID: 62242743128868504}
   - component: {fileID: 62242743128868506}
   - component: {fileID: 407196699403847103}
+  - component: {fileID: 6774300976993523616}
   m_Layer: 11
   m_Name: Boss
   m_TagString: Enemy
@@ -200,7 +198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f381728c36b8a044ca6842fb9ae7a501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 100
+  startingHealth: 5000
   rb: {fileID: 62242743128868506}
   alertTrigger: {fileID: 9017722383201545995}
   playerAlertSignal: {fileID: 8395144913853656140, guid: 18f7ca048d9c17f4e9b2630a21c61ff1, type: 3}
@@ -213,6 +211,27 @@ MonoBehaviour:
   startAlerted: 0
   startingDirection: {x: 0, y: 0}
   speed: 0
+  projectile: {fileID: 0}
+  bomb: {fileID: 0}
+  tSpawner: {fileID: 6774300976993523616}
+  animator: {fileID: 7744977105101967634}
+  maxCooldown: 5
+  minCooldown: 1
+--- !u!114 &6774300976993523616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 62242743128868486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0398de2d6da4a294183added42ab683b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tentaclePrefab: {fileID: 0}
+  spawnBoundTopRight: {fileID: 0}
+  spawnBoundBottomLeft: {fileID: 0}
 --- !u!1 &629535561726955473
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,15 +306,15 @@ SpriteRenderer:
   m_SortingLayerID: -2062861885
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 6145426cf574e584ba48a14cf34d16ee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 10, y: 11}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &7744977105101967634
@@ -389,7 +408,7 @@ MonoBehaviour:
   - {x: 0.15576094, y: -0.12513456, z: 0}
   m_ShapePathHash: 648781833
   m_Mesh: {fileID: 0}
-  m_InstanceId: 140732
+  m_InstanceId: 120936
 --- !u!212 &5213632936273341044
 SpriteRenderer:
   m_ObjectHideFlags: 0
