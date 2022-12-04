@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Users;
 
@@ -15,12 +16,19 @@ public class GameSystem : MonoBehaviour
     // Singleton instance
     private static GameSystem instance;
 
+    [SerializeField]
+    private CameraController cc;
+
     private ControlMode control;
 
     // Properties
     public static GameSystem Inst
     {
         get { return instance; }
+    }
+    public CameraController CameraControl
+    {
+        get { return cc; }
     }
     public ControlMode Control
     {
@@ -34,6 +42,8 @@ public class GameSystem : MonoBehaviour
         {
             instance = this;
         }
+
+        Assert.IsNotNull(cc);
 
         InputUser.onChange += ControlsChanged;
     }

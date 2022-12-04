@@ -32,6 +32,7 @@ public class CollapseDeathState : MoveState
         player.WeaponInventory.DisableWeapons();
 
         // Play collapse death animation
+        UISystem.Inst.HideUI();
         player.Sprite.OverrideSequences();
         player.Sprite.Unlock();
         player.Sprite.Action = AnimAction.CollapseDeath;

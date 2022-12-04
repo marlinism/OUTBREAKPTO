@@ -66,15 +66,17 @@ public class HealthBarManager : MonoBehaviour
     public void IncreaseWidth(float widthIncrease)
     {
         Vector2 dimensions = fillBar.sizeDelta;
-        float estimate = dimensions.x + widthIncrease;
-        if (estimate > maxWidth)
-        {
-            SetWidth(maxWidth);
-            return;
-        }
+        //float estimate = dimensions.x + widthIncrease;
+        //if (estimate > maxWidth)
+        //{
+        //    SetWidth(maxWidth);
+        //    return;
+        //}
 
-        widthIncrease *= 1 - (estimate / maxWidth);
-        SetWidth(widthIncrease + dimensions.x);
+        //widthIncrease *= 1 - (estimate / maxWidth);
+        //SetWidth(widthIncrease + dimensions.x);
+
+        SetWidth(dimensions.x + widthIncrease);
     }
 
     // Set the health bar fill position

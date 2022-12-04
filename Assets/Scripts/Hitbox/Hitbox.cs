@@ -14,13 +14,35 @@ public class Hitbox : MonoBehaviour
     private Collider2D c2d;
     private HitboxData data;
 
+    // Properties
     public HitboxData Data
     {
         get { return data; }
+        set { data = value; }
+    }
+    public int Damage
+    {
+        get { return data.Damage; }
+        set { data.Damage = value; }
+    }
+    public DamageSource Source
+    {
+        get { return data.Source; }
+        set { data.Source = value; }
+    }
+    public DamageType Type
+    {
+        get { return data.Type; }
+        set { data.Type = value; }
+    }
+    public DamageResponse Response
+    {
+        get { return data.Response; }
+        set { data.Response = value; }
     }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         c2d = GetComponent<Collider2D>();
         Assert.IsNotNull(c2d);

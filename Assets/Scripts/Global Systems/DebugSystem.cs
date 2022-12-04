@@ -8,8 +8,12 @@ public class DebugSystem : MonoBehaviour
     private static DebugSystem instance;
 
     public GameObject spawnObject;
+    public BossTentacleAttackSpawner tentacleSpawner;
+    public int tentacleSpawnCount = 1;
 
     private float reloadPauseStart;
+
+    private bool cameraZoomedOut = false;
 
     public static DebugSystem Instance
     {
@@ -45,16 +49,43 @@ public class DebugSystem : MonoBehaviour
             obj.transform.position = objPos;
         }
 
-        //// Exit program
-        //if (Input.GetKeyDown(KeyCode.Escape))
-        //{
-        //    Application.Quit();
-        //}
+        // Exit program
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
 
         // Reload scene
         if (Input.GetKeyDown(KeyCode.F1))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+        // Spawn tentacle
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            tentacleSpawner.Spawn(tentacleSpawnCount);
+        }
+
+        // Spawn tentacle wave
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            tentacleSpawner.SpawnWave();
+        }
+
+        // Toggle camera size
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            if (cameraZoomedOut)
+            {
+                GameSystem.Inst.CameraControl.ChangeCameraSizeScale(ZoomLevel.Normal);
+                cameraZoomedOut = false;
+            }
+            else
+            {
+                GameSystem.Inst.CameraControl.ChangeCameraSizeScale(ZoomLevel.ZoomOut2);
+                cameraZoomedOut = true;
+            }
         }
     }
 

@@ -24,6 +24,9 @@ public class PlayerManager : Damageable
     // Cooldown of roll action
     public float rollCoolDown = 4f;
 
+    // Angle of aim assist amount
+    public float aimAssistAngle = 30f;
+
     // Indicates if the player is using a gamepad (otherwise keyboard)
     private bool usingGamepad = false;
 
@@ -41,6 +44,9 @@ public class PlayerManager : Damageable
 
     // Indicates if the player is currently in a reloading move state
     private bool reloading;
+
+    // Filter used for obtaining hurtboxes in gamepad aim assist
+    private ContactFilter2D aimAssistFilter;
 
     // Player component properties
     public Rigidbody2D Rigidbody
@@ -125,6 +131,12 @@ public class PlayerManager : Damageable
         speedMultiplier = 1f;
         lastRoll = 0f;
         reloading = false;
+
+        aimAssistAngle /= 2;
+        aimAssistFilter = new();
+        aimAssistFilter.useTriggers = true;
+        aimAssistFilter.useLayerMask = true;
+        aimAssistFilter.layerMask = LayerMask.GetMask("Hurtbox");
 
         PlayerSystem.Inst.SetPlayer(gameObject);
 
@@ -265,29 +277,18 @@ public class PlayerManager : Damageable
 
         if (input.actions["Reload"].triggered)
         {
-            WeaponManager wm = WeaponInventory.CurrentWeapon;
-            if (wm != null && wm.Ammo < wm.AmmoCapacity)
-            {
-                switch (wm.weaponName)
-                {
-                    case "weapon_pistol":
-                        msm.AddMoveState(new ReloadPistolState(gameObject, wm));
-                        break;
-
-                    case "weapon_ar":
-                        msm.AddMoveState(new ReloadARState(gameObject, wm));
-                        break;
-
-                    case "weapon_mg":
-                        msm.AddMoveState(new ReloadMGState(gameObject, wm));
-                        break;
-                }
-            }
+            ReloadCurrentWeapon();
         }
     }
 
+    // Update the current weapon state for aiming and firing
     private void UpdateWeaponState()
     {
+        if (WeaponInventory.WeaponCount <= 0)
+        {
+            return;
+        }
+
         // Aim weapon
         if (usingGamepad)
         {
@@ -301,9 +302,26 @@ public class PlayerManager : Damageable
         // Fire weapon
         if (input.actions["Fire"].ReadValue<float>() != 0)
         {
+            // Aim assist if using gamepad
+            if (usingGamepad)
+            {
+                if (ApplyAimAssist())
+                {
+                    wim.AimCurrentWeapon(lookDirection, pointPosition);
+                }
+            }
+
+            // Send fire signal and check for auto reload
             if (input.actions["Fire"].triggered)
             {
-                wim.FireCurrentWeapon(true);
+                if (WeaponInventory.CurrentWeapon.Ammo <= 0)
+                {
+                    ReloadCurrentWeapon();
+                }
+                else
+                {
+                    wim.FireCurrentWeapon(true);
+                }
             }
             else
             {
@@ -312,6 +330,81 @@ public class PlayerManager : Damageable
 
             UISystem.Inst.UpdateAmmoCounter();
         }
+    }
+
+    // Reload the current weapon
+    private void ReloadCurrentWeapon()
+    {
+        WeaponManager wm = WeaponInventory.CurrentWeapon;
+        if (wm != null && wm.Ammo < wm.AmmoCapacity)
+        {
+            switch (wm.weaponName)
+            {
+                case "weapon_pistol":
+                    msm.AddMoveState(new ReloadPistolState(gameObject, wm));
+                    break;
+
+                case "weapon_ar":
+                    msm.AddMoveState(new ReloadARState(gameObject, wm));
+                    break;
+
+                case "weapon_mg":
+                    msm.AddMoveState(new ReloadMGState(gameObject, wm));
+                    break;
+            }
+        }
+    }
+
+    // Apply look aim assist when using gamepad controls
+    // Auto-aims at the closest hurtbox within a certain angle of the look direction
+    // Returns true if aim assist is applied
+    // Returns false if there was not hurtbox to snap to
+    private bool ApplyAimAssist()
+    {
+        float targetDist = float.MaxValue;
+        Vector3 targetPos = transform.position;
+        Collider2D[] targets = new Collider2D[20];
+        Vector2 screenBottomLeft = Camera.main.ViewportToWorldPoint(new Vector3(0f, 0f, -Camera.main.transform.position.z));
+        Vector2 screenTopRight = Camera.main.ViewportToWorldPoint(new Vector3(1f, 1f, -Camera.main.transform.position.z));
+
+        // Get hurtboxes visible on screen
+        int targetCount = Physics2D.OverlapArea(screenBottomLeft, screenTopRight, aimAssistFilter, targets);
+
+        // Target closest detected hurtbox within aim assist range
+        for (int i = 0; i < targetCount; ++i)
+        {
+            // Ignore player's hurtbox
+            if ((targets[i].transform.position == hb.transform.position))
+            {
+                continue;
+            }
+
+            Vector2 relativeDirection = targets[i].transform.position - transform.position;
+            relativeDirection.Normalize();
+
+            if (Vector3.Angle(lookDirection, relativeDirection) > aimAssistAngle)
+            {
+                continue;
+            }
+
+            float sqrDist = (targets[i].transform.position - transform.position).sqrMagnitude;
+            if (sqrDist < targetDist)
+            {
+                targetPos = targets[i].transform.position;
+                targetDist = sqrDist;
+            }
+        }
+
+        // Apply aim assist
+        if (targetPos != transform.position)
+        {
+            lookDirection = targetPos - transform.position;
+            lookDirection.Normalize();
+            pointPosition = targetPos;
+            return true;
+        }
+
+        return false;
     }
 
     // Update the player's velocity given the value of moveDirection
@@ -358,10 +451,12 @@ public class PlayerManager : Damageable
         if (user.controlScheme.Value.name == "Gamepad")
         {
             usingGamepad = true;
+            UISystem.Inst.HideCursor();
         }
         else
         {
             usingGamepad = false;
+            UISystem.Inst.ShowCursor();
         }
     }
 }

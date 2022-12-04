@@ -34,11 +34,14 @@ public class PlayerSystem : MonoBehaviour
 
         player = inPlayer;
         UISystem.Inst.ShowUI();
+        UISystem.Inst.UpdateHealthBar();
+        GameSystem.Inst.CameraControl.PrimaryTarget = inPlayer;
     }
 
     public void RemovePlayer()
     {
         player = null;
+        GameSystem.Inst.CameraControl.PrimaryTarget = null;
     }
 
     public GameObject GetPlayer()

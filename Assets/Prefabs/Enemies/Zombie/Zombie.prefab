@@ -251,7 +251,7 @@ MonoBehaviour:
   - {x: 0.1559433, y: -0.12507851, z: 0}
   m_ShapePathHash: 1376537051
   m_Mesh: {fileID: 0}
-  m_InstanceId: 60670
+  m_InstanceId: 120216
 --- !u!1 &4843955850782383330
 GameObject:
   m_ObjectHideFlags: 0
@@ -577,6 +577,7 @@ GameObject:
   - component: {fileID: 7410244785489951000}
   - component: {fileID: 9145530109666001149}
   - component: {fileID: 1929553192398791981}
+  - component: {fileID: 3278236699980996532}
   m_Layer: 0
   m_Name: Zombie
   m_TagString: Enemy
@@ -685,3 +686,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af0fe7c72e298f9448f565b8333b9ea7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3278236699980996532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7831216371223491407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77f5e296adc10224797de5954fa614df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unloadDistance: 16
+  autoUnload: 1
