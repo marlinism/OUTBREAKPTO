@@ -5,6 +5,7 @@ using UnityEngine;
 public class PopcornEnemyManager : Enemy
 {
     public Animator animator;
+    public ItemDropper itemDropper;
 
     public float attackSpeed;
     public float attackDuration;
@@ -113,6 +114,11 @@ public class PopcornEnemyManager : Enemy
     // Damagable method implementations
     public override void Kill()
     {
+        if (itemDropper != null)
+        {
+            itemDropper.DropItems();
+        }
+
         // Stub, add death animation
         Destroy(gameObject);
     }

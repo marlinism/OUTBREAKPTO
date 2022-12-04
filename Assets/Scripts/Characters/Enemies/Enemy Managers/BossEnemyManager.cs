@@ -6,8 +6,10 @@ public class BossEnemyManager : Enemy
 {    
     public GameObject projectile;
     public GameObject bomb;
+    public GameObject projectileSpawnLocation;
     public BossTentacleAttackSpawner tSpawner;
     public Animator animator;
+    public DoorController bossDoor;
     public float maxCooldown = 5f;
     public float minCooldown = 1f;
 
@@ -44,7 +46,8 @@ public class BossEnemyManager : Enemy
                 attackNumber = 0;
             }else{
                 attackNumber++;
-                //Instantiate(projectile);
+                GameObject instance = Instantiate(projectile);
+                instance.transform.position = projectileSpawnLocation.transform.position;
             }
             animator.Play("Attack");
             cooldown = Random.Range(minCooldown, maxCooldown);
@@ -55,13 +58,14 @@ public class BossEnemyManager : Enemy
 
         if(tCooldown <= 0){
             if(tAttackNumber >= 5){
-                tSpawner.SpawnWave(Random.Range(5, 20));
+                tSpawner.SpawnWave(Random.Range(50, 100));
+                //tSpawner.SpawnWave();
                 tAttackNumber = 0;
             }else{
                 tAttackNumber++;
                 tSpawner.Spawn(Random.Range(1, 4));
             }
-            tCooldown = 3f;
+            tCooldown = 3.5f;
         }else{
             tCooldown -= Time.deltaTime;
         }
@@ -73,5 +77,24 @@ public class BossEnemyManager : Enemy
     {
         // Stub, add death sequence/game win
         Destroy(gameObject);
+    }
+
+    public override bool Alert(bool createAlertSignal = false)
+    {
+        bool toReturn = base.Alert(createAlertSignal);
+
+        if (alerted)
+        {
+            Debug.Log("balls");
+
+            bossDoor.Close();
+            bossDoor.Locked = true;
+
+            GameSystem.Inst.CameraControl.SecondaryTarget = gameObject;
+            GameSystem.Inst.CameraControl.ChangeCameraSizeScale(ZoomLevel.ZoomOut2);
+
+        }
+
+        return toReturn;
     }
 }

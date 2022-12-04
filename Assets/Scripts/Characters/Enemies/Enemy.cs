@@ -106,7 +106,6 @@ public abstract class Enemy : Damageable
     // Damageable RecieveDamage method implementation
     public override void RecieveDamage(HitboxData damageInfo, GameObject collider = null)
     {
-        Debug.Log("AMOGOUS");
         currHealth -= damageInfo.Damage;
 
         switch (damageInfo.Type)
