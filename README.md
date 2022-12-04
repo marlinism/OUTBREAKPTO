@@ -1,6 +1,4 @@
-# Outbreak-PTO-Beta
-
-too lazy to write description todo: add description
+# Outbreak-PTO-Fina-Build
 
 Play the WebGL build [here](https://pranbhardwaj.github.io/OutbreakPTO_beta/Build/WebGL/).
 
