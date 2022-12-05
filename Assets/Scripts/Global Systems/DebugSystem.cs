@@ -50,10 +50,10 @@ public class DebugSystem : MonoBehaviour
         }
 
         // Exit program
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Application.Quit();
-        }
+        //if (Input.GetKeyDown(KeyCode.Escape))
+        //{
+        //    Application.Quit();
+        //}
 
         // Reload scene
         if (Input.GetKeyDown(KeyCode.F1))
@@ -74,19 +74,19 @@ public class DebugSystem : MonoBehaviour
         }
 
         // Toggle camera size
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            if (cameraZoomedOut)
-            {
-                GameSystem.Inst.CameraControl.ChangeCameraSizeScale(ZoomLevel.Normal);
-                cameraZoomedOut = false;
-            }
-            else
-            {
-                GameSystem.Inst.CameraControl.ChangeCameraSizeScale(ZoomLevel.ZoomOut2);
-                cameraZoomedOut = true;
-            }
-        }
+        //if (Input.GetKeyDown(KeyCode.C))
+        //{
+        //    if (cameraZoomedOut)
+        //    {
+        //        GameSystem.Inst.CameraControl.ChangeCameraSizeScale(ZoomLevel.Normal);
+        //        cameraZoomedOut = false;
+        //    }
+        //    else
+        //    {
+        //        GameSystem.Inst.CameraControl.ChangeCameraSizeScale(ZoomLevel.ZoomOut2);
+        //        cameraZoomedOut = true;
+        //    }
+        //}
     }
 
     public void DeathReload()
