@@ -17,13 +17,14 @@ public class BossEnemyManager : Enemy
     private float attackNumber = 0;
     private float tAttackNumber = 0;
     private float cooldown;
+    public AudioClip newTrack;
+    private AudioManager theAM;
 
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
-
-
+        theAM = FindObjectOfType<AudioManager>();
     }
 
     // Update is called once per frame
@@ -92,7 +93,9 @@ public class BossEnemyManager : Enemy
 
             GameSystem.Inst.CameraControl.SecondaryTarget = gameObject;
             GameSystem.Inst.CameraControl.ChangeCameraSizeScale(ZoomLevel.ZoomOut2);
-
+            if(newTrack != null) {
+                theAM.ChangeBGM(newTrack);
+            }
         }
 
         return toReturn;
