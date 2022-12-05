@@ -33,7 +33,12 @@ public class WeaponEquippedController : MonoBehaviour
 
     void Start() {
         reloadSound = GetComponent<AudioSource>();
-    }
+		    if (reloadSound != null)
+		    {
+			    reloadSound.volume = StateManager.voulumeLevel;
+
+		    }
+	}
 
     public bool WeaponEnabled
     {
