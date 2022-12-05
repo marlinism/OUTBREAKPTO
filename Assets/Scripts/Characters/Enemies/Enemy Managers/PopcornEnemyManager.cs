@@ -22,6 +22,7 @@ public class PopcornEnemyManager : Enemy
     private float attackDistance = 2f;
     private float distance = 0f;
     private bool directionLock = false;
+    // AudioSource killedSound;
 
     //private bool isAlive = true;
 
@@ -29,6 +30,7 @@ public class PopcornEnemyManager : Enemy
     protected override void Start()
     {
         base.Start();
+        // killedSound = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -120,6 +122,8 @@ public class PopcornEnemyManager : Enemy
         }
 
         // Stub, add death animation
+        // killedSound.Play();
         Destroy(gameObject);
+        // Destroy(gameObject, killedSound.clip.length);
     }
 }
