@@ -59,8 +59,7 @@ GameObject:
   - component: {fileID: 2785790115785393321}
   - component: {fileID: 2785790115785393323}
   - component: {fileID: 2785790115785393322}
-  - component: {fileID: 3227453126559835213}
-  - component: {fileID: 2125402735398796832}
+  - component: {fileID: 4786828943597213733}
   m_Layer: 11
   m_Name: Popcorn
   m_TagString: Enemy
@@ -124,6 +123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 20
   rb: {fileID: 2785790115785393323}
+  se: {fileID: 2732646962510253573}
   alertTrigger: {fileID: 3971259168009942445}
   playerAlertSignal: {fileID: 8395144913853656140, guid: 18f7ca048d9c17f4e9b2630a21c61ff1, type: 3}
   effectsList:
@@ -136,13 +136,12 @@ MonoBehaviour:
   startingDirection: {x: 0, y: 0}
   speed: 3
   animator: {fileID: 5552819096066118435}
-  itemDropper: {fileID: 0}
   attackSpeed: 3
   attackDuration: 1
   attacking: 0
   direction: ' '
   attackCoolDown: 0
---- !u!114 &3227453126559835213
+--- !u!114 &4786828943597213733
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -156,102 +155,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unloadDistance: 16
   autoUnload: 1
---- !u!82 &2125402735398796832
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2785790115785393335}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 3fa355be64997487696c3d1d3b840e70, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1.5
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &2785790116000866452
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,6 +247,7 @@ GameObject:
   - component: {fileID: 637013880943475674}
   - component: {fileID: 5755782510127402668}
   - component: {fileID: 5552819096066118435}
+  - component: {fileID: 2732646962510253573}
   m_Layer: 11
   m_Name: Sprite
   m_TagString: Untagged
@@ -386,7 +290,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: e3102ae3bc9ca9941a64ba347b9235c4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -438,6 +342,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2732646962510253573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3371141590110309856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8a7f77bdc1701941b127f8f016b1537, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteList:
+  - {fileID: 5755782510127402668}
+  defaultFlashColor: {r: 1, g: 0, b: 0, a: 0.5019608}
+  defaultFlashDuration: 0.1
 --- !u!1 &3971259168009942445
 GameObject:
   m_ObjectHideFlags: 0
@@ -653,7 +573,7 @@ MonoBehaviour:
   - {x: 0.15576094, y: -0.12513456, z: 0}
   m_ShapePathHash: 648781833
   m_Mesh: {fileID: 0}
-  m_InstanceId: 119746
+  m_InstanceId: 52730
 --- !u!212 &7939485091460114501
 SpriteRenderer:
   m_ObjectHideFlags: 0

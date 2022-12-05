@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BossEnemyManager : Enemy
 {    
@@ -77,6 +78,7 @@ public class BossEnemyManager : Enemy
     public override void Kill()
     {
         // Stub, add death sequence/game win
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         Destroy(gameObject);
     }
 
@@ -86,8 +88,6 @@ public class BossEnemyManager : Enemy
 
         if (alerted)
         {
-            Debug.Log("balls");
-
             bossDoor.Close();
             bossDoor.Locked = true;
 

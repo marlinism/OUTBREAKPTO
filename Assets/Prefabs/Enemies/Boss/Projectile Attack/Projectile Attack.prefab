@@ -255,8 +255,8 @@ MonoBehaviour:
   potatoPrefab: {fileID: 617564670714029656, guid: 9b7fffd5767acac41974a902e51b00f5, type: 3}
   rotationSpeed: 270
   movementSpeed: 9
-  minPotatoesSpawned: 2
-  maxPotatoesSpawned: 5
+  minPotatoesSpawned: 1
+  maxPotatoesSpawned: 3
 --- !u!1 &8995470455342103015
 GameObject:
   m_ObjectHideFlags: 0

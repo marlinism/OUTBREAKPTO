@@ -88,9 +88,12 @@ PolygonCollider2D:
       - {x: -0.49725437, y: -0.28367326}
       - {x: -0.4993312, y: -0.3669233}
       - {x: -0.451803, y: -0.39258322}
-      - {x: -0.24587403, y: -0.39452487}
-      - {x: -0.23884311, y: -0.4508412}
-      - {x: 0.30622035, y: -0.45255557}
+      - {x: -0.2510904, y: -0.39587006}
+      - {x: -0.24704103, y: -0.45618498}
+      - {x: -0.035614904, y: -0.4591329}
+      - {x: 0.014485163, y: -0.4858357}
+      - {x: 0.13592845, y: -0.4679823}
+      - {x: 0.3098097, y: -0.46381643}
       - {x: 0.31390628, y: -0.3935634}
       - {x: 0.3740271, y: -0.28913787}
       - {x: 0.4575168, y: -0.2134358}
@@ -136,7 +139,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 62242743009286180}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.24, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -257,6 +260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 5000
   rb: {fileID: 62242743128868506}
+  se: {fileID: 3401450369881545395}
   alertTrigger: {fileID: 9017722383201545995}
   playerAlertSignal: {fileID: 8395144913853656140, guid: 18f7ca048d9c17f4e9b2630a21c61ff1, type: 3}
   effectsList:
@@ -276,6 +280,7 @@ MonoBehaviour:
   bossDoor: {fileID: 0}
   maxCooldown: 5
   minCooldown: 1
+  newTrack: {fileID: 0}
 --- !u!114 &6774300976993523616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -409,8 +414,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8a7f77bdc1701941b127f8f016b1537, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteList: []
-  defaultFlashColor: {r: 1, g: 0, b: 0, a: 1}
+  spriteList:
+  - {fileID: 7607874560941673629}
+  defaultFlashColor: {r: 1, g: 0, b: 0, a: 0.5019608}
   defaultFlashDuration: 0.1
 --- !u!1 &1366888433869222525
 GameObject:
@@ -545,7 +551,7 @@ MonoBehaviour:
   - {x: 0.15576094, y: -0.12513456, z: 0}
   m_ShapePathHash: 648781833
   m_Mesh: {fileID: 0}
-  m_InstanceId: 625484
+  m_InstanceId: 133204
 --- !u!212 &5213632936273341044
 SpriteRenderer:
   m_ObjectHideFlags: 0
