@@ -18,6 +18,7 @@ public class ZombieEnemyManager : Enemy
 
     public float fireRange = 8f;
     public float meleeRange = 1f;
+    AudioSource killedSound;
 
     // Properties
     public WeaponInventoryManager WeaponInventory
@@ -44,6 +45,9 @@ public class ZombieEnemyManager : Enemy
         esm.CalculateOrientation(FaceDirection);
         esm.PlayAnimation("idle");
         wim.AimCurrentWeapon(FaceDirection);
+
+        killedSound = GetComponent<AudioSource>();
+		killedSound.volume = StateManager.voulumeLevel;
     }
 
     // Update is called once per frame
@@ -82,7 +86,8 @@ public class ZombieEnemyManager : Enemy
     {
         // stub, add death animation
         RemoveWeapon();
-        Destroy(gameObject);
+        killedSound.Play();
+        Destroy(gameObject, killedSound.clip.length);
     }
 
     public void RemoveWeapon()
@@ -95,6 +100,8 @@ public class ZombieEnemyManager : Enemy
         WeaponManager weapon = wim.CurrentWeapon;
         wim.RemoveCurrentWeapon();
         Destroy(weapon.gameObject);
+
+        
 
         // temporary solution to melee damage
         // Remove once headbutt attack is added

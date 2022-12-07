@@ -25,11 +25,14 @@ public class PopcornEnemyManager : Enemy
 
 	private bool isAlive = true;
 	private bool playDeath = false;
+	AudioSource killedSound;
 
 	// Start is called before the first frame update
 	protected override void Start()
 	{
 		base.Start();
+		killedSound = GetComponent<AudioSource>();
+		killedSound.volume = StateManager.voulumeLevel;
 	}
 
 	// Update is called once per frame
@@ -105,6 +108,7 @@ public class PopcornEnemyManager : Enemy
 				animator.SetBool("attacking", false);
 				animator.SetBool("isDead", true);
 				nextAction = Time.time + 0.5f;
+				killedSound.Play();
 				playDeath = true;
 			}
 			else

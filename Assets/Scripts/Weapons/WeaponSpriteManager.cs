@@ -17,7 +17,7 @@ public class WeaponSpriteManager : MonoBehaviour
 
     void Start() {
         shootingSound = GetComponent<AudioSource>();
-		    shootingSound.volume = StateManager.voulumeLevel;
+		shootingSound.volume = StateManager.voulumeLevel;
 	}
 
     public bool Visible
