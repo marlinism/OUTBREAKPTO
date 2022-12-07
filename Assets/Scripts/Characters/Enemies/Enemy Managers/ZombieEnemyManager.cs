@@ -89,6 +89,8 @@ public class ZombieEnemyManager : Enemy
         msm.FinishCurrentState();
         StopMovement();
         enabled = false;
+        tempHitbox.Disable();
+        Invincible = true;
         killedSound.Play();
         Destroy(gameObject, killedSound.clip.length);
     }
