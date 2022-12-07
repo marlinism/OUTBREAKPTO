@@ -15,9 +15,13 @@ public class BossEnemyManager : Enemy
     public float minCooldown = 1f;
 
     private float tCooldown = 3f;
+    private float dCooldown = 1.2f;
     private float attackNumber = 0;
     private float tAttackNumber = 0;
     private float cooldown;
+    private bool isAlive = true;
+    private bool playDeath = false;
+
     public AudioClip newTrack;
     private AudioManager theAM;
 
@@ -32,45 +36,62 @@ public class BossEnemyManager : Enemy
     // Update is called once per frame
     void Update()
     {
-        if(!alerted){
-            return;
-        }
 
-        GameObject player = PlayerSystem.Inst.GetPlayer();
-
-        if(player == null){
-            return;
-        }
-
-        //float cooldown = Random.Range(minCooldown, maxCooldown);
-        if(cooldown <= 0){
-            if(attackNumber >= 5){
-                //Instantiate(bomb);
-                attackNumber = 0;
-            }else{
-                attackNumber++;
-                GameObject instance = Instantiate(projectile);
-                instance.transform.position = projectileSpawnLocation.transform.position;
+        if(isAlive){
+            if(!alerted){
+                return;
             }
-            animator.Play("Attack");
-            cooldown = Random.Range(minCooldown, maxCooldown);
+
+            GameObject player = PlayerSystem.Inst.GetPlayer();
+
+            if(player == null){
+                return;
+            }
+
+            //float cooldown = Random.Range(minCooldown, maxCooldown);
+            if(cooldown <= 0){
+                if(attackNumber >= 5){
+                    //Instantiate(bomb);
+                    attackNumber = 0;
+                }else{
+                    attackNumber++;
+                    GameObject instance = Instantiate(projectile);
+                    instance.transform.position = projectileSpawnLocation.transform.position;
+                }
+                animator.Play("Attack");
+                cooldown = Random.Range(minCooldown, maxCooldown);
             
-        }else{
-            cooldown -= Time.deltaTime;
-        }
-
-        if(tCooldown <= 0){
-            if(tAttackNumber >= 5){
-                tSpawner.SpawnWave(Random.Range(50, 100));
-                //tSpawner.SpawnWave();
-                tAttackNumber = 0;
             }else{
-                tAttackNumber++;
-                tSpawner.Spawn(Random.Range(1, 4));
+                cooldown -= Time.deltaTime;
             }
-            tCooldown = 3.5f;
+
+            if(tCooldown <= 0){
+                if(tAttackNumber >= 5){
+                    tSpawner.SpawnWave(Random.Range(50, 100));
+                    //tSpawner.SpawnWave();
+                    tAttackNumber = 0;
+                }else{
+                    tAttackNumber++;
+                    tSpawner.Spawn(Random.Range(1, 4));
+                }
+                tCooldown = 3.5f;
+            }else{
+                tCooldown -= Time.deltaTime;
+            }
         }else{
-            tCooldown -= Time.deltaTime;
+            if (!playDeath)
+			{
+				animator.Play("death");
+				playDeath = true;
+			}
+
+            if(dCooldown <= 0){
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                Destroy(gameObject);
+            }else{
+                dCooldown -= Time.deltaTime;
+            }
+            
         }
 
         
@@ -85,8 +106,8 @@ public class BossEnemyManager : Enemy
     public override void Kill()
     {
         // Stub, add death sequence/game win
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        Destroy(gameObject);
+        isAlive = false;
+        
     }
 
     public override bool Alert(bool createAlertSignal = false)
