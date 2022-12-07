@@ -103,7 +103,7 @@ public class BossEnemyManager : Enemy
             UISystem.Inst.ShowBossHealthBar();
             GameSystem.Inst.CameraControl.SecondaryTarget = gameObject;
             GameSystem.Inst.CameraControl.ChangeCameraSizeScale(ZoomLevel.ZoomOut2);
-            if(newTrack != null) {
+            if(newTrack != null && StateManager.musicState) {
                 theAM.ChangeBGM(newTrack);
             }
         }
