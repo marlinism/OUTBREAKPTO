@@ -86,6 +86,9 @@ public class ZombieEnemyManager : Enemy
     {
         // stub, add death animation
         RemoveWeapon();
+        msm.FinishCurrentState();
+        StopMovement();
+        enabled = false;
         killedSound.Play();
         Destroy(gameObject, killedSound.clip.length);
     }

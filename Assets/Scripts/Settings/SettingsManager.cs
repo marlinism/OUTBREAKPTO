@@ -7,10 +7,13 @@ public class SettingsManager : MonoBehaviour
 {
   public Slider VolumeSlider;
   public Toggle TutorialToggle;
+  public Toggle MusicToggle;
+  public GameObject musicControl;
   void Start()
   {
     TutorialToggle.isOn = StateManager.tutorialState;
     VolumeSlider.value = StateManager.voulumeLevel;
+    MusicToggle.isOn = StateManager.musicState; 
 	}
   public void ToggleTutorials(bool IsOn)
   {
@@ -21,4 +24,17 @@ public class SettingsManager : MonoBehaviour
   {
     StateManager.voulumeLevel = volume;
   }
+
+  public void ToggleMusic(bool isOn)
+  {
+    StateManager.musicState = isOn;
+		if (!StateManager.musicState)
+		{
+			musicControl.SetActive(false);
+		}
+		else
+		{
+			musicControl.SetActive(true);
+		}
+	}
 }

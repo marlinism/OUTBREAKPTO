@@ -5,6 +5,7 @@ using UnityEngine;
 public class CrossSceneController : MonoBehaviour
 {
 	public GameObject helpMarker;
+	public GameObject bgMusic;
 	void Start()
 	{
 		if (!StateManager.tutorialState)
@@ -14,6 +15,15 @@ public class CrossSceneController : MonoBehaviour
 		else
 		{
 			helpMarker.SetActive(true);
+		}
+
+		if (!StateManager.musicState)
+		{
+			bgMusic.SetActive(false);
+		}
+		else
+		{
+			bgMusic.SetActive(true);
 		}
 	}
 }

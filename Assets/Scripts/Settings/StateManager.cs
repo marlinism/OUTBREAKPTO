@@ -5,5 +5,6 @@ using UnityEngine;
 public class StateManager : MonoBehaviour
 {
   public static bool tutorialState = true;
+  public static bool musicState = true;
   public static float voulumeLevel = 0.2f;
 }

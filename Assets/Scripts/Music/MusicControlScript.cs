@@ -18,4 +18,16 @@ public class MusicControlScript : MonoBehaviour
             Destroy(gameObject); // Destroy this gameObject
         }
     }
+
+  void Start()
+  {
+		if (!StateManager.musicState)
+		{
+			gameObject.SetActive(false);
+		}
+		else
+		{
+			gameObject.SetActive(true);
+		}
+	}
 }
