@@ -70,6 +70,11 @@ public class CollapseDeathState : MoveState
         switch(substate)
         {
             case DeathSubstate.Starting:
+                GameSystem.Inst.CameraControl.ResizeTime = 0f;
+                GameSystem.Inst.CameraControl.TransitionTime = 0f;
+                GameSystem.Inst.CameraControl.SecondaryTarget = null;
+                GameSystem.Inst.CameraControl.ZoomScaleLevel = ZoomLevel.Normal;
+
                 UISystem.Inst.Effects.EnableEffect(UIEffect.ScreenCrack);
                 pauseTime = Time.unscaledTime;
                 Time.timeScale = 0f;

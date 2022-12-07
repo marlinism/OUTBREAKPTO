@@ -136,6 +136,7 @@ MonoBehaviour:
   startingDirection: {x: 0, y: 0}
   speed: 3
   animator: {fileID: 5552819096066118435}
+  itemDropper: {fileID: 0}
   attackSpeed: 3
   attackDuration: 1
   attacking: 0
@@ -573,7 +574,7 @@ MonoBehaviour:
   - {x: 0.15576094, y: -0.12513456, z: 0}
   m_ShapePathHash: 648781833
   m_Mesh: {fileID: 0}
-  m_InstanceId: 52730
+  m_InstanceId: 149348
 --- !u!212 &7939485091460114501
 SpriteRenderer:
   m_ObjectHideFlags: 0

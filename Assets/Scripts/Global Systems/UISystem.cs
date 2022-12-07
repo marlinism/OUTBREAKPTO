@@ -22,6 +22,12 @@ public class UISystem : MonoBehaviour
     private HealthBarManager healthBar;
 
     [SerializeField]
+    private BossEnemyManager boss;
+
+    [SerializeField]
+    private HealthBarManager bossHealthBar;
+
+    [SerializeField]
     private MessageBoxManager messageBox;
 
     [SerializeField]
@@ -36,8 +42,13 @@ public class UISystem : MonoBehaviour
     // Previous recorded max health of the player
     private int prevMaxHealth;
 
+    private bool bossHealthVisible;
+
     // Lock for modifying cursor visibility
     private bool cursorVisibilityLocked;
+
+    // Lock for modifying UI visibility
+    private bool uiVisibilityLocked;
 
     // Effect property
     public UIEffectsController Effects
@@ -56,6 +67,8 @@ public class UISystem : MonoBehaviour
         Assert.IsNotNull(overlayCanvas);
         Assert.IsNotNull(uiEffects);
         Assert.IsNotNull(healthBar);
+        Assert.IsNotNull(bossHealthBar);
+        Assert.IsNotNull(boss);
         Assert.IsNotNull(messageBox);
 
         if (crosshair != null)
@@ -67,18 +80,45 @@ public class UISystem : MonoBehaviour
         }
 
         prevMaxHealth = 0;
+        bossHealthVisible = false;
         cursorVisibilityLocked = false;
+        uiVisibilityLocked = false;
         HideUI();
     }
 
     public void ShowUI()
     {
+        if (uiVisibilityLocked)
+        {
+            return;
+        }
+
         overlayCanvas.SetActive(true);
+
+        if (!bossHealthVisible)
+        {
+            HideBossHealthBar();
+        }
     }
 
     public void HideUI()
     {
+        if (uiVisibilityLocked)
+        {
+            return;
+        }
+
         overlayCanvas.SetActive(false);
+    }
+
+    public void LockUIVisibility()
+    {
+        uiVisibilityLocked = true;
+    }
+
+    public void UnlockUIVisibility()
+    {
+        uiVisibilityLocked = false;
     }
 
     // Update the UI health bar given the player's current's status
@@ -97,6 +137,33 @@ public class UISystem : MonoBehaviour
         }
 
         healthBar.SetFillPosition((float)player.Health / (float)player.MaxHealth);
+    }
+
+    public void UpdateBossHealthBar()
+    {
+        bossHealthBar.SetFillPosition((float)boss.Health / (float)boss.MaxHealth);
+    }
+
+    public void ShowBossHealthBar()
+    {
+        if (uiVisibilityLocked)
+        {
+            return;
+        }
+
+        bossHealthVisible = true;
+        bossHealthBar.gameObject.SetActive(true);
+    }
+
+    public void HideBossHealthBar()
+    {
+        if (uiVisibilityLocked)
+        {
+            return;
+        }
+
+        bossHealthVisible = false;
+        bossHealthBar.gameObject.SetActive(false);
     }
 
     // Enable cursor visibility 

@@ -25,6 +25,7 @@ public class BossEnemyManager : Enemy
     protected override void Start()
     {
         base.Start();
+        Invincible = true;
         theAM = FindObjectOfType<AudioManager>();
     }
 
@@ -75,6 +76,12 @@ public class BossEnemyManager : Enemy
         
     }
 
+    public override void Damage(HitboxData damageInfo, GameObject collider = null)
+    {
+        base.Damage(damageInfo, collider);
+
+        UISystem.Inst.UpdateBossHealthBar();
+    }
     public override void Kill()
     {
         // Stub, add death sequence/game win
@@ -91,6 +98,9 @@ public class BossEnemyManager : Enemy
             bossDoor.Close();
             bossDoor.Locked = true;
 
+            Invincible = false;
+
+            UISystem.Inst.ShowBossHealthBar();
             GameSystem.Inst.CameraControl.SecondaryTarget = gameObject;
             GameSystem.Inst.CameraControl.ChangeCameraSizeScale(ZoomLevel.ZoomOut2);
             if(newTrack != null) {

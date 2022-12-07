@@ -73,6 +73,20 @@ public class DebugSystem : MonoBehaviour
             tentacleSpawner.SpawnWave();
         }
 
+        // Disable and lock UI
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            UISystem.Inst.HideUI();
+            UISystem.Inst.LockUIVisibility();
+        }
+
+        // Unlock and enable UI
+        if (Input.GetKeyDown(KeyCode.F3))
+        {
+            UISystem.Inst.UnlockUIVisibility();
+            UISystem.Inst.ShowUI();
+        }
+
         // Toggle camera size
         //if (Input.GetKeyDown(KeyCode.C))
         //{

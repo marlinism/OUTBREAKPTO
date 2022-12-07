@@ -1151,7 +1151,7 @@ MonoBehaviour:
   projectileSpeed: 0
   projectileMaxDist: 0
   projectileSource: 1
-  baseDamage: 200
+  baseDamage: 150
   rateOfFire: 0.5
   automaticFire: 0
   projectilePenetration: 0
