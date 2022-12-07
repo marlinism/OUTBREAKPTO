@@ -25,12 +25,15 @@ public class BossEnemyManager : Enemy
     public AudioClip newTrack;
     private AudioManager theAM;
 
+    AudioSource killedSound;
+
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
         Invincible = true;
         theAM = FindObjectOfType<AudioManager>();
+        killedSound = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -82,6 +85,7 @@ public class BossEnemyManager : Enemy
             if (!playDeath)
 			{
 				animator.Play("death");
+                killedSound.Play();
 				playDeath = true;
 			}
 
