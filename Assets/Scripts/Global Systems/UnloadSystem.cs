@@ -7,12 +7,20 @@ public class UnloadSystem : MonoBehaviour
     // Singleton instance
     private static UnloadSystem instance;
 
+    private GameObject targetObject;
     private LinkedList<Unloadable> unloadedList;
 
     // Instance property
     public static UnloadSystem Inst
     {
         get { return instance; }
+    }
+
+    // Target property
+    public GameObject TargetObject
+    {
+        get { return targetObject; }
+        set { targetObject = value; }
     }
 
     // Start is called before the first frame update
@@ -29,13 +37,13 @@ public class UnloadSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GameObject player = PlayerSystem.Inst.GetPlayer();
-        if (player == null)
+        if (targetObject == null)
         {
+            targetObject = PlayerSystem.Inst.GetPlayer();
             return;
         }
 
-        Vector2Int playerPos = Vector2Int.RoundToInt(player.transform.position);
+        Vector2Int targetPos = Vector2Int.RoundToInt(targetObject.transform.position);
         float cameraZoomScale = GameSystem.Inst.CameraControl.SizeScale;
 
         LinkedListNode<Unloadable> curr = unloadedList.First;
@@ -43,7 +51,7 @@ public class UnloadSystem : MonoBehaviour
         {
             Unloadable currVal = curr.Value;
             int scaledUnloadDist = (int)(currVal.UnloadDistance * cameraZoomScale);
-            if ((playerPos - currVal.UnloadedPosition).sqrMagnitude < currVal.UnloadDistance * currVal.UnloadDistance)
+            if ((targetPos - currVal.UnloadedPosition).sqrMagnitude < currVal.UnloadDistance * currVal.UnloadDistance)
             {
                 currVal.Reload();
                 LinkedListNode<Unloadable> toRemove = curr;
@@ -55,6 +63,11 @@ public class UnloadSystem : MonoBehaviour
                 curr = curr.Next;
             }
         }
+    }
+
+    public void SetTarget(GameObject target)
+    {
+        targetObject = target;
     }
 
     public void Add(Unloadable toAdd)

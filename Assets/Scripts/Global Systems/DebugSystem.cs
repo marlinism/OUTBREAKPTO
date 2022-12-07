@@ -7,6 +7,7 @@ public class DebugSystem : MonoBehaviour
 {
     private static DebugSystem instance;
 
+    public DebugCameraController debugCamera;
     public GameObject spawnObject;
     public BossTentacleAttackSpawner tentacleSpawner;
     public int tentacleSpawnCount = 1;
@@ -49,6 +50,19 @@ public class DebugSystem : MonoBehaviour
             obj.transform.position = objPos;
         }
 
+        // Enter debug camera
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            if (debugCamera.enabled)
+            {
+                debugCamera.enabled = false;
+            }
+            else
+            {
+                debugCamera.enabled = true;
+            }
+        }
+
         // Exit program
         //if (Input.GetKeyDown(KeyCode.Escape))
         //{
@@ -88,19 +102,19 @@ public class DebugSystem : MonoBehaviour
         }
 
         // Toggle camera size
-        //if (Input.GetKeyDown(KeyCode.C))
-        //{
-        //    if (cameraZoomedOut)
-        //    {
-        //        GameSystem.Inst.CameraControl.ChangeCameraSizeScale(ZoomLevel.Normal);
-        //        cameraZoomedOut = false;
-        //    }
-        //    else
-        //    {
-        //        GameSystem.Inst.CameraControl.ChangeCameraSizeScale(ZoomLevel.ZoomOut2);
-        //        cameraZoomedOut = true;
-        //    }
-        //}
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            if (cameraZoomedOut)
+            {
+                GameSystem.Inst.CameraControl.ChangeCameraSizeScale(ZoomLevel.Normal);
+                cameraZoomedOut = false;
+            }
+            else
+            {
+                GameSystem.Inst.CameraControl.ChangeCameraSizeScale(ZoomLevel.ZoomOut2);
+                cameraZoomedOut = true;
+            }
+        }
     }
 
     public void DeathReload()

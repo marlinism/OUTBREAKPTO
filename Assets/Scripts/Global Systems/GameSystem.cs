@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Users;
 
@@ -46,6 +47,21 @@ public class GameSystem : MonoBehaviour
         Assert.IsNotNull(cc);
 
         InputUser.onChange += ControlsChanged;
+    }
+
+    public void DeathReload()
+    {
+        StartCoroutine(DeathReloadCoroutine());
+    }
+
+    IEnumerator DeathReloadCoroutine()
+    {
+        Time.timeScale = 0f;
+        yield return new WaitForSecondsRealtime(1);
+
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        yield break;
     }
 
     private void ControlsChanged(InputUser user, InputUserChange change, InputDevice device)

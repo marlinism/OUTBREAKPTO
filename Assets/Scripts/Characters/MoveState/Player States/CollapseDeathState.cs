@@ -96,6 +96,6 @@ public class CollapseDeathState : MoveState
 
         // Blackscreen, todo: add death action
         UISystem.Inst.Effects.EnableEffect(UIEffect.BlackScreen);
-        DebugSystem.Instance.DeathReload();
+        GameSystem.Inst.DeathReload();
     }
 }
