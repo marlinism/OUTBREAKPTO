@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class BossEnemyManager : Enemy
-{    
+{
     public GameObject projectile;
     public GameObject bomb;
     public GameObject projectileSpawnLocation;
@@ -34,6 +34,7 @@ public class BossEnemyManager : Enemy
         Invincible = true;
         theAM = FindObjectOfType<AudioManager>();
         killedSound = GetComponent<AudioSource>();
+        killedSound.volume = StateManager.voulumeLevel;
     }
 
     // Update is called once per frame
@@ -63,7 +64,7 @@ public class BossEnemyManager : Enemy
                 }
                 animator.Play("Attack");
                 cooldown = Random.Range(minCooldown, maxCooldown);
-            
+
             }else{
                 cooldown -= Time.deltaTime;
             }
@@ -95,10 +96,10 @@ public class BossEnemyManager : Enemy
             }else{
                 dCooldown -= Time.deltaTime;
             }
-            
+
         }
 
-        
+
     }
 
     public override void Damage(HitboxData damageInfo, GameObject collider = null)
@@ -111,7 +112,7 @@ public class BossEnemyManager : Enemy
     {
         // Stub, add death sequence/game win
         isAlive = false;
-        
+
     }
 
     public override bool Alert(bool createAlertSignal = false)
